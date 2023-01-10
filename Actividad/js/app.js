@@ -3,8 +3,8 @@ const draw = async (el = "#graf") => {
   const graf = d3.select("#graf")
 
   // Carga del dataset
-  let dataset = await d3.csv("gapminder.csv", d3.autoType)
-  dataset = dataset.filter((d) => d.income > 0 && d.life_exp > 0)
+  let dataset = await d3.csv("csv/vehiculos.csv", d3.autoType)
+  //dataset = dataset.filter((d) => d.income > 0 && d.life_exp > 0)
 
   // Dimensiones
   const anchoTotal = +graf.style("width").slice(0, -2)
@@ -16,13 +16,13 @@ const draw = async (el = "#graf") => {
   const ancho = anchoTotal - margins.left - margins.right
 
   // Accessors
-  const xAccessor = (d) => d.income
-  const yAccessor = (d) => d.life_exp
-  const rAccessor = (d) => d.population
+  const xAccessor = (d) => d.mesid
+  const yAccessor = (d) => d.valor
+  //const rAccessor = (d) => d.population
 
-  // Continentes
-  const continents = Array.from(new Set(dataset.map((d) => d.continent)))
-  const selcon = d3.select("#continent")
+  // Tipo
+  const tipo = Array.from(new Set(dataset.map((d) => d.tipo)))
+  /*const selcon = d3.select("#continent")
 
   let cont = ["todos"]
   continents.forEach((c) => {
@@ -34,10 +34,10 @@ const draw = async (el = "#graf") => {
     .data(cont)
     .join("option")
     .attr("value", (d) => d)
-    .text((d) => d)
+    .text((d) => d)*/
 
   // Escaladores
-  const color = d3.scaleOrdinal().domain(continents).range(d3.schemeTableau10)
+  const color = d3.scaleOrdinal().domain(tipo).range(d3.schemeTableau10)
   const x = d3
     .scaleLog()
     .domain(d3.extent(dataset, xAccessor))
@@ -47,11 +47,11 @@ const draw = async (el = "#graf") => {
     .domain(d3.extent(dataset, yAccessor))
     .range([alto, 0])
     .nice()
-  const r = d3
+  /*const r = d3
     .scaleLinear()
     .domain(d3.extent(dataset, rAccessor))
     .range([25, 25000])
-    .nice()
+    .nice()*/
 
   // Espacio de gráfica
   const svg = graf
@@ -80,13 +80,13 @@ const draw = async (el = "#graf") => {
     .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
   // Variables
-  const yearMin = d3.min(dataset, (d) => d.year)
-  const yearMax = d3.max(dataset, (d) => d.year)
+  const yearMin = d3.min(dataset, (d) => d.mesid)
+  const yearMax = d3.max(dataset, (d) => d.mesid)
   let year = Math.floor((yearMax - yearMin) / 2) + yearMin
   let yearInterval
   let running = false
   const play = d3.select("#play")
-  let filtroContinente = "todos"
+  //let filtroContinente = "todos"
 
   const yearLayer = chart
     .append("g")
@@ -97,11 +97,11 @@ const draw = async (el = "#graf") => {
     .text(year)
 
   const step = (year) => {
-    let newDataset = dataset.filter((d) => d.year == year)
+    let newDataset = dataset.filter((d) => d.mesid == year)
 
-    if (filtroContinente != "todos") {
-      newDataset = newDataset.filter((d) => d.continent == filtroContinente)
-    }
+    /*if (filtroContinente != "todos") {
+      newDataset = newDataset.filter((d) => d.tipo == filtroContinente)
+    }*/
 
     // Dibujar los puntos
     const circles = chart
@@ -110,8 +110,8 @@ const draw = async (el = "#graf") => {
       .join("circle")
       .attr("cx", (d) => x(xAccessor(d)))
       .attr("cy", (d) => y(yAccessor(d)))
-      .attr("r", (d) => Math.sqrt(r(rAccessor(d) / Math.PI)))
-      .attr("fill", (d) => color(d.continent))
+      //.attr("r", (d) => Math.sqrt(r(rAccessor(d) / Math.PI)))
+      .attr("fill", (d) => color(d.tipo))
       .attr("stroke", "#999")
       .attr("opacity", 0.6)
       .attr("clip-path", "url(#clip)")
@@ -126,6 +126,7 @@ const draw = async (el = "#graf") => {
     year = year < yearMin ? yearMin : year
     step(year)
   })
+  
   d3.select("#sig").on("click", () => {
     year++
     year = year > yearMax ? yearMax : year
@@ -147,10 +148,10 @@ const draw = async (el = "#graf") => {
     running = !running
   })
 
-  selcon.on("change", () => {
+  /*selcon.on("change", () => {
     filtroContinente = selcon.node().value
     step(year)
-  })
+  })*/
 
   // Ejes
   const xAxis = d3
