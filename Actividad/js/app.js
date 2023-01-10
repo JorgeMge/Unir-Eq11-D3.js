@@ -8,9 +8,9 @@ const draw = async (el = "#graf") => {
 
   // Dimensiones
   const anchoTotal = +graf.style("width").slice(0, -2)
-  const altoTotal = anchoTotal * 0.5
+  const altoTotal = anchoTotal * 0.38
 
-  const margins = { top: 20, right: 20, bottom: 75, left: 100 }
+  const margins = { top: 20, right: 20, bottom: 75, left: 180 }
 
   const alto = altoTotal - margins.top - margins.bottom
   const ancho = anchoTotal - margins.left - margins.right
@@ -39,7 +39,8 @@ const draw = async (el = "#graf") => {
   // Escaladores
   const color = d3.scaleOrdinal().domain(tipo).range(d3.schemeTableau10)
   const x = d3
-    .scaleLog()
+    //.scaleLog()
+    .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
     .range([0, ancho])
   const y = d3
@@ -88,16 +89,16 @@ const draw = async (el = "#graf") => {
   const play = d3.select("#play")
   //let filtroContinente = "todos"
 
-  const yearLayer = chart
+  /*const yearLayer = chart
     .append("g")
     .append("text")
     .attr("x", ancho / 2)
     .attr("y", alto / 2)
     .classed("year", true)
-    .text(year)
+    .text(year)*/
 
   const step = (year) => {
-    let newDataset = dataset.filter((d) => d.mesid == year)
+    //let newDataset = dataset.filter((d) => d.mesid == year)
 
     /*if (filtroContinente != "todos") {
       newDataset = newDataset.filter((d) => d.tipo == filtroContinente)
@@ -106,17 +107,19 @@ const draw = async (el = "#graf") => {
     // Dibujar los puntos
     const circles = chart
       .selectAll("circle")
-      .data(newDataset)
+      .data(dataset)
+      //.data(newDataset)
       .join("circle")
       .attr("cx", (d) => x(xAccessor(d)))
       .attr("cy", (d) => y(yAccessor(d)))
+      .attr("r", (d) => 4)
       //.attr("r", (d) => Math.sqrt(r(rAccessor(d) / Math.PI)))
       .attr("fill", (d) => color(d.tipo))
       .attr("stroke", "#999")
       .attr("opacity", 0.6)
       .attr("clip-path", "url(#clip)")
 
-    yearLayer.text(year)
+    //yearLayer.text(year)
   }
 
   step(year)
@@ -173,7 +176,8 @@ const draw = async (el = "#graf") => {
     .attr("x", ancho / 2)
     .attr("y", margins.bottom - 10)
     .attr("fill", "black")
-    .text("Ingreso Per Cápita")
+    .text("Mes ID")
+
   yAxisGroup
     .append("text")
     .attr("x", -alto / 2)
@@ -181,7 +185,7 @@ const draw = async (el = "#graf") => {
     .attr("fill", "black")
     .style("text-anchor", "middle")
     .style("transform", "rotate(270deg)")
-    .text("Expectativa de Vida")
+    .text("Valor")
 }
 
 draw()
