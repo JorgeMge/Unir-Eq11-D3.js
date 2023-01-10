@@ -82,7 +82,7 @@ const draw = async (el = "#graf") => {
   // Variables
   const yearMin = d3.min(dataset, (d) => d.mesid)
   const yearMax = d3.max(dataset, (d) => d.mesid)
-  let year = Math.floor((yearMax - yearMin) / 2) + yearMin
+  let year = 200801//Math.floor((yearMax - yearMin) / 2) + yearMin
   let yearInterval
   let running = false
   const play = d3.select("#play")
