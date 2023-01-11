@@ -65,7 +65,7 @@ const draw = async (el = "#graf") => {
     .append("g")
     .append("rect")
     .attr("transform", `translate(${margins.left}, ${margins.top})`)
-    .attr("width", ancho)
+    .attr("width", ancho * 1.05)
     .attr("height", alto)
     .attr("class", "backdrop")
 
@@ -73,7 +73,7 @@ const draw = async (el = "#graf") => {
     .append("clipPath")
     .attr("id", "clip")
     .append("rect")
-    .attr("width", ancho)
+    .attr("width", ancho * 1.05)
     .attr("height", alto)
 
   const chart = svg
