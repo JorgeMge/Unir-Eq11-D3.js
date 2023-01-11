@@ -159,7 +159,7 @@ const draw = async (el = "#graf") => {
   // Ejes
   const xAxis = d3
     .axisBottom(x)
-    .ticks(3)
+    .ticks(9)
     .tickFormat((d) => d.toLocaleString())
   const yAxis = d3.axisLeft(y)
 
@@ -167,7 +167,7 @@ const draw = async (el = "#graf") => {
     .append("g")
     .attr("transform", `translate(0, ${alto})`)
     .call(xAxis)
-    .attr("transform", "rotate(-30)")
+    //.attr("transform", "rotate(-30)")
     .classed("axis", true)
   const yAxisGroup = chart.append("g").call(yAxis).classed("axis", true)
 
