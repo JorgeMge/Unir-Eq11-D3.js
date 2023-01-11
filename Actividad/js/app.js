@@ -175,7 +175,7 @@ const draw = async (el = "#graf") => {
     .tickFormat(FormatX)
 
   const yAxis = d3.axisLeft(y)
-    .tickSize(-ancho * 1.05)
+    .tickSize(-ancho * 1.05) 
     .tickFormat(FormatY)
                   
   const xAxisGroup = chart
