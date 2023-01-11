@@ -156,12 +156,21 @@ const draw = async (el = "#graf") => {
     step(year)
   })*/
 
+  const FormatX = (d) => {
+    return d/100
+  }
+
   // Ejes
   const xAxis = d3
     .axisBottom(x)
     .ticks(10)
-    .tickFormat((d) => d.toLocaleString())
+    //.tickFormat((d) => d.toLocaleString())
+    .tickFormat(FormatX)
+
+  
+
   const yAxis = d3.axisLeft(y)
+                  
 
   const xAxisGroup = chart
     .append("g")
