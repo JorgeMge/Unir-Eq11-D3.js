@@ -10,7 +10,7 @@ const draw = async (el = "#graf") => {
   const anchoTotal = +graf.style("width").slice(0, -2)
   const altoTotal = anchoTotal * 0.38
 
-  const margins = { top: 20, right: 20, bottom: 75, left: 180 }
+  const margins = { top: 20, right: 60, bottom: 75, left: 180 }
 
   const alto = altoTotal - margins.top - margins.bottom
   const ancho = anchoTotal - margins.left - margins.right
@@ -42,7 +42,7 @@ const draw = async (el = "#graf") => {
     //.scaleLog()
     .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
-    .range([0, ancho])
+    .range([-20, ancho * 1.1])
   const y = d3
     .scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
@@ -159,7 +159,7 @@ const draw = async (el = "#graf") => {
   // Ejes
   const xAxis = d3
     .axisBottom(x)
-    .ticks(9)
+    .ticks(10)
     .tickFormat((d) => d.toLocaleString())
   const yAxis = d3.axisLeft(y)
 
