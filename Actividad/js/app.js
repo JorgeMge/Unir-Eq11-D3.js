@@ -42,7 +42,7 @@ const draw = async (el = "#graf") => {
     //.scaleLog()
     .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
-    .range([-20, ancho * 1.1])
+    .range([0, ancho * 1.1])
   const y = d3
     .scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
@@ -171,9 +171,11 @@ const draw = async (el = "#graf") => {
     .axisBottom(x)
     .ticks(10)
     //.tickFormat((d) => d.toLocaleString())
+    .tickSize(-alto)
     .tickFormat(FormatX)
 
   const yAxis = d3.axisLeft(y)
+    .tickSize(-ancho * 1.05)
     .tickFormat(FormatY)
                   
   const xAxisGroup = chart
