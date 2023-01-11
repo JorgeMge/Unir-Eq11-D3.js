@@ -38,13 +38,11 @@ const draw = async (el = "#graf") => {
 
   // Escaladores
   const color = d3.scaleOrdinal().domain(tipo).range(d3.schemeTableau10)
-
-  
   const x = d3
     //.scaleLog()
     .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
-    .range([-0.5, ancho * 1.1])
+    .range([-20, ancho * 1.1])
   const y = d3
     .scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
@@ -85,22 +83,24 @@ const draw = async (el = "#graf") => {
   // Variables
   const yearMin = d3.min(dataset, (d) => d.mesid)
   const yearMax = d3.max(dataset, (d) => d.mesid)
-  let year = 200801//Math.floor((yearMax - yearMin) / 2) + yearMin
-  let yearInterval
+  //let mes = "ENERO"//Math.floor((yearMax - yearMin) / 2) + yearMin
+  const meses = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];
+  let mes = 0
+  let mesInterval
   let running = false
   const play = d3.select("#play")
   //let filtroContinente = "todos"
 
-  /*const yearLayer = chart
+  const mesLayer = chart
     .append("g")
     .append("text")
     .attr("x", ancho / 2)
     .attr("y", alto / 2)
-    .classed("year", true)
-    .text(year)*/
+    .classed("mes", true)
+    .text(meses[mes])
 
   const step = (year) => {
-    //let newDataset = dataset.filter((d) => d.mesid == year)
+    let newDataset = dataset.filter((d) => d.mes == mes+1)
 
     /*if (filtroContinente != "todos") {
       newDataset = newDataset.filter((d) => d.tipo == filtroContinente)
@@ -109,7 +109,7 @@ const draw = async (el = "#graf") => {
     // Dibujar los puntos
     const circles = chart
       .selectAll("circle")
-      .data(dataset)
+      .data(newDataset)
       //.data(newDataset)
       .join("circle")
       .attr("cx", (d) => x(xAccessor(d)))
@@ -121,21 +121,21 @@ const draw = async (el = "#graf") => {
       .attr("opacity", 0.6)
       .attr("clip-path", "url(#clip)")
 
-    //yearLayer.text(year)
+    mesLayer.text(meses[mes])
   }
 
-  step(year)
+  step(mes)
 
   d3.select("#ant").on("click", () => {
-    year--
-    year = year < yearMin ? yearMin : year
-    step(year)
+    mes--
+    mes = mes < 0 ? 11 : mes
+    step(mes)
   })
   
   d3.select("#sig").on("click", () => {
-    year++
-    year = year > yearMax ? yearMax : year
-    step(year)
+    mes++
+    mes = mes > 11 ? 0 : mes
+    step(mes)
   })
 
   play.on("click", () => {
@@ -143,10 +143,10 @@ const draw = async (el = "#graf") => {
       clearInterval(yearInterval)
       play.classed("btn-success", true).classed("btn-danger", false)
     } else {
-      yearInterval = setInterval(() => {
-        year++
-        year = year > yearMax ? yearMin : year
-        step(year)
+      mesInterval = setInterval(() => {
+        mes++
+        mes = mes > 11 ? 0 : mes
+        step(mes)
       }, 1000)
       play.classed("btn-success", false).classed("btn-danger", true)
     }
@@ -172,13 +172,10 @@ const draw = async (el = "#graf") => {
     .ticks(10)
     //.tickFormat((d) => d.toLocaleString())
     .tickFormat(FormatX)
-    .tickSize(-alto)
 
   const yAxis = d3.axisLeft(y)
     .tickFormat(FormatY)
-    .tickSize(-ancho * 1.05)
-  
-    
+                  
   const xAxisGroup = chart
     .append("g")
     .attr("transform", `translate(0, ${alto})`)
@@ -192,7 +189,7 @@ const draw = async (el = "#graf") => {
     .attr("x", ancho / 2)
     .attr("y", margins.bottom - 10)
     .attr("fill", "black")
-    .text("Mes ID")
+    .text("Año")
 
   yAxisGroup
     .append("text")

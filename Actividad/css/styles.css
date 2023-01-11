@@ -19,15 +19,13 @@ body {
   shape-rendering: geometricPrecision;
 }
 
-
-
 .axis line  {
   stroke: #ccc;
   stroke-dasharray: 5 5;
 }
 
-.year {
-  font-size: 200px;
+.mes {
+  font-size: 150px;
   fill: #bedede;
   font-weight: bold;
   text-anchor: middle;
