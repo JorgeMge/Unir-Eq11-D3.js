@@ -140,7 +140,7 @@ const draw = async (el = "#graf") => {
 
   play.on("click", () => {
     if (running) {
-      clearInterval(yearInterval)
+      clearInterval(mesInterval)
       play.classed("btn-success", true).classed("btn-danger", false)
     } else {
       mesInterval = setInterval(() => {
