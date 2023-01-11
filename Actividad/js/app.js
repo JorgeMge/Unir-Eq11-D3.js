@@ -1,6 +1,7 @@
 const draw = async (el = "#graf") => {
   // Selección de gráfica
   const graf = d3.select("#graf")
+  const icono = d3.select("#icono")
 
   // Carga del dataset
   let dataset = await d3.csv("csv/vehiculos.csv", d3.autoType)
@@ -142,6 +143,7 @@ const draw = async (el = "#graf") => {
     if (running) {
       clearInterval(mesInterval)
       play.classed("btn-success", true).classed("btn-danger", false)
+      icono.classed("fa-play", true).classed("fa-pause", false)
     } else {
       mesInterval = setInterval(() => {
         mes++
@@ -149,6 +151,7 @@ const draw = async (el = "#graf") => {
         step(mes)
       }, 1000)
       play.classed("btn-success", false).classed("btn-danger", true)
+      icono.classed("fa-play", false).classed("fa-pause", true)
     }
     running = !running
   })
@@ -175,7 +178,7 @@ const draw = async (el = "#graf") => {
     .tickFormat(FormatX)
 
   const yAxis = d3.axisLeft(y)
-    .tickSize(-ancho * 1.05) 
+    .tickSize(-ancho * 1.05)
     .tickFormat(FormatY)
                   
   const xAxisGroup = chart
