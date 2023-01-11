@@ -38,11 +38,13 @@ const draw = async (el = "#graf") => {
 
   // Escaladores
   const color = d3.scaleOrdinal().domain(tipo).range(d3.schemeTableau10)
+
+  
   const x = d3
     //.scaleLog()
     .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
-    .range([-20, ancho * 1.1])
+    .range([-0.5, ancho * 1.1])
   const y = d3
     .scaleLinear()
     .domain(d3.extent(dataset, yAccessor))
@@ -170,10 +172,13 @@ const draw = async (el = "#graf") => {
     .ticks(10)
     //.tickFormat((d) => d.toLocaleString())
     .tickFormat(FormatX)
+    .tickSize(-alto)
 
   const yAxis = d3.axisLeft(y)
     .tickFormat(FormatY)
-                  
+    .tickSize(-ancho * 1.05)
+  
+    
   const xAxisGroup = chart
     .append("g")
     .attr("transform", `translate(0, ${alto})`)

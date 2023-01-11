@@ -19,6 +19,13 @@ body {
   shape-rendering: geometricPrecision;
 }
 
+
+
+.axis line  {
+  stroke: #ccc;
+  stroke-dasharray: 5 5;
+}
+
 .year {
   font-size: 200px;
   fill: #bedede;
