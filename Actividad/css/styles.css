@@ -2,11 +2,12 @@
 
 body {
   font-family: Barlow, sans-serif;
+  background-color: #ecf3ee;
 }
 
 .graf {
   border: 1px solid #22333b;
-  background-color: #afe3c0;
+  background-color: #ffd1ba;
 }
 
 .backdrop {
@@ -24,4 +25,9 @@ body {
   font-weight: bold;
   text-anchor: middle;
   alignment-baseline: central;
+}
+
+footer{
+  padding: 10 px;
+  margin: 10 px;
 }

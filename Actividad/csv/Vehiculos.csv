@@ -1,4 +1,4 @@
-id,tipo,mesid,mes-id,valor,time
+id,tipo,mesid,mes_id,valor,time
 1,"Importaciones",199301,"1993-01",139625000,728546400000
 1,"Importaciones",199302,"1993-02",154686000,730965600000
 1,"Importaciones",199303,"1993-03",168154000,733644000000

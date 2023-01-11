@@ -10,7 +10,7 @@ const draw = async (el = "#graf") => {
   const anchoTotal = +graf.style("width").slice(0, -2)
   const altoTotal = anchoTotal * 0.38
 
-  const margins = { top: 20, right: 60, bottom: 75, left: 180 }
+  const margins = { top: 20, right: 60, bottom: 75, left: 120 }
 
   const alto = altoTotal - margins.top - margins.bottom
   const ancho = anchoTotal - margins.left - margins.right
@@ -160,6 +160,10 @@ const draw = async (el = "#graf") => {
     return d/100
   }
 
+  const FormatY = (d) => {
+    return d/1000000 + " M"
+  }
+
   // Ejes
   const xAxis = d3
     .axisBottom(x)
@@ -167,11 +171,9 @@ const draw = async (el = "#graf") => {
     //.tickFormat((d) => d.toLocaleString())
     .tickFormat(FormatX)
 
-  
-
   const yAxis = d3.axisLeft(y)
+    .tickFormat(FormatY)
                   
-
   const xAxisGroup = chart
     .append("g")
     .attr("transform", `translate(0, ${alto})`)
