@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300;500;800&display=swap");
+
+body {
+  font-family: Barlow, sans-serif;
+  background-color: #ecf3ee;
+}
+
+.graf {
+  border: 1px solid #22333b;
+  background-color: #ffd1ba;
+}
+
+.backdrop {
+  fill: #eaeaea;
+}
+
+.axis {
+  font-size: 15px;
+  shape-rendering: geometricPrecision;
+}
+
+.axis line  {
+  stroke: #ccc;
+  stroke-dasharray: 5 5;
+}
+
+/*Lineas*/
+svg {
+    font-family: Sans-Serif, Arial;
+}
+.line {
+  stroke-width: 2;
+  fill: none;
+}
+
+.axis path {
+  stroke: black;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.title-text {
+  font-size: 12px;
+}
+
+
+.mes {
+  font-size: 150px;
+  fill: #bedede;
+  font-weight: bold;
+  text-anchor: middle;
+  alignment-baseline: central;
+}
+
+footer{
+  padding: 10 px;
+  margin: 10 px;
+}
