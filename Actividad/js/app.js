@@ -99,6 +99,7 @@ const draw = async (el = "#graf") => {
     .attr("y", alto / 2)
     .classed("mes", true)
     .text(meses[mes])
+    
 
   const step = (year) => {
     let newDataset = dataset.filter((d) => d.mes == mes+1)
@@ -113,6 +114,8 @@ const draw = async (el = "#graf") => {
       .data(newDataset)
       //.data(newDataset)
       .join("circle")
+      .transition() 
+      .duration(1000)
       .attr("cx", (d) => x(xAccessor(d)))
       .attr("cy", (d) => y(yAccessor(d)))
       .attr("r", (d) => 4)
