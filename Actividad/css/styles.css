@@ -24,6 +24,35 @@ body {
   stroke-dasharray: 5 5;
 }
 
+/*Lineas*/
+svg {
+    font-family: Sans-Serif, Arial;
+}
+.linei {
+  stroke: red;
+  stroke-width: 2;
+  fill: none;
+}
+
+.linee {
+  stroke: #377eb8;
+  stroke-width: 2;
+  fill: none;
+}
+
+.axis path {
+  stroke: black;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.title-text {
+  font-size: 12px;
+}
+
+
 .mes {
   font-size: 150px;
   fill: #bedede;
