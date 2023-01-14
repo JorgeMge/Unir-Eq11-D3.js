@@ -84,6 +84,7 @@ const draw = async (el = "#graf") => {
     .attr("y", alto / 2)
     .classed("mes", true)
     .text(meses[mes])
+    
 
   const step = (mes) => {
     //Filtrado
