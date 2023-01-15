@@ -23,8 +23,10 @@ const draw = async (el = "#graf") => {
   // Tipo
   const tipo = Array.from(new Set(dataset.map((d) => d.tipo)))
 
-  // Escaladores
+  // Colores
   const color = d3.scaleOrdinal().domain(tipo).range(d3.schemeSet1)
+
+  // Escaladores
   const x = d3
     //.scaleLog()
     .scaleLinear()
@@ -117,11 +119,12 @@ const draw = async (el = "#graf") => {
     .text("Valor")
 
   // Variables
-  const yearMin = d3.min(dataset, (d) => d.anio)
-  const yearMax = d3.max(dataset, (d) => d.anio)
+  const yearMin = d3.min(dataset, (d) => d.anio) //Año minimo en el dataset
+  const yearMax = d3.max(dataset, (d) => d.anio) //Año máximo en el dataset
   let ban = 1   // Bandera para crear las lineas en la primera iteración
-  let linesi    
-  let linese    
+  let linesi // Filtro de importaciones   
+  let linese // Filtro de exportaciones  
+
   // Arreglo de meses para mostrar el nombre
   const meses = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'];
   let mes = 0   // Mes incial
@@ -138,6 +141,7 @@ const draw = async (el = "#graf") => {
     .classed("mes", true)
     .text(meses[mes])
 
+  //Función para iterar
   const step = (mes) => {
     //Filtrado
     let ds = dataset.filter((d) => d.mes == mes+1)
@@ -208,6 +212,7 @@ const draw = async (el = "#graf") => {
         );
     }
 
+    //Etiqueta de valores
     const etiqueta = chart
       .selectAll("text.etiqueta")
       .data(ds)
@@ -217,8 +222,6 @@ const draw = async (el = "#graf") => {
       .duration(1000)
       .attr("x", (d) => x(d.anio))
       .attr("y", (d) => y(d.valor)-10)
-      //.attr("transform", `translate(0, ${(d) => y(d.valor)})`)
-      //.attr("transform", "rotate(-65)")
       .text((d) => new Intl.NumberFormat("es-MX", {
         style: "currency",
         currency: "MXN",
