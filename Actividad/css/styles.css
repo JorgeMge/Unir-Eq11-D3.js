@@ -24,6 +24,15 @@ body {
   stroke-dasharray: 5 5;
 }
 
+.rojo{
+  font-size: 15px;
+  color: red !important; 
+}
+.azul{
+  font-size: 15px;
+  color: #377eb8 !important; 
+}
+
 /*Lineas*/
 svg {
     font-family: Sans-Serif, Arial;
