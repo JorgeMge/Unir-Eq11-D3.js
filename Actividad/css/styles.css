@@ -61,6 +61,15 @@ svg {
   alignment-baseline: central;
 }
 
+.etiqueta {
+  font-size: 10px;
+  color: black;
+  font-weight: bold;
+  text-anchor: middle;
+  alignment-baseline: central;
+  /*position: absolute;*/
+}
+
 footer{
   padding: 10 px;
   margin: 10 px;
