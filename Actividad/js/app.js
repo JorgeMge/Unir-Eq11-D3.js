@@ -63,12 +63,19 @@ const draw = async (el = "#graf") => {
     .append("g")
     .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
+  //Formato de ejes
   const FormatX = (d) => {
     return d
   }
 
   const FormatY = (d) => {
-    return d/1000000 + " M"
+    //return d/1000000 + " M"
+    return new Intl.NumberFormat("es-MX", {
+        style: "currency",
+        currency: "MXN",
+        maximumFractionDigits: 0,
+        roundingIncrement: 5,
+      }).format(d/1000000) + " M"
   }
 
   // Ejes
