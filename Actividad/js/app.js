@@ -18,7 +18,6 @@ const draw = async (el = "#graf") => {
   // Accessors
   const xAccessor = (d) => d.anio
   const yAccessor = (d) => d.valor
-  //const rAccessor = (d) => d.population
 
   // Tipo
   const tipo = Array.from(new Set(dataset.map((d) => d.tipo)))
@@ -28,7 +27,6 @@ const draw = async (el = "#graf") => {
 
   // Escaladores
   const x = d3
-    //.scaleLog()
     .scaleLinear()
     .domain(d3.extent(dataset, xAccessor))
     .range([0, ancho])
@@ -71,7 +69,6 @@ const draw = async (el = "#graf") => {
   }
 
   const FormatY = (d) => {
-    //return d/1000000 + " M"
     return new Intl.NumberFormat("es-MX", {
         style: "currency",
         currency: "MXN",
