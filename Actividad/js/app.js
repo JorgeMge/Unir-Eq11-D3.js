@@ -63,52 +63,6 @@ const draw = async (el = "#graf") => {
     .append("g")
     .attr("transform", `translate(${margins.left}, ${margins.top})`)
 
-  const FormatX = (d) => {
-    return d
-  }
-
-  const FormatY = (d) => {
-    return d/1000000 + " M"
-  }
-
-  // Ejes
-  const xAxis = d3
-    .axisBottom(x)
-    .ticks(20)
-    .tickSize(-alto)
-    .tickFormat(FormatX)
-
-  const yAxis = d3.axisLeft(y)
-    .tickSize(-ancho)
-    .tickFormat(FormatY)
-                  
-  const xAxisGroup = chart
-    .append("g")
-    .attr("transform", `translate(0, ${alto})`)
-    .call(xAxis)
-    .classed("axis", true)
-
-  const yAxisGroup = chart
-    .append("g")
-    .call(yAxis)
-    .classed("axis", true)
-
-  xAxisGroup
-    .append("text")
-    .attr("x", ancho / 2)
-    .attr("y", margins.bottom - 10)
-    .attr("fill", "black")
-    .text("Año")
-
-  yAxisGroup
-    .append("text")
-    .attr("x", -alto / 2)
-    .attr("y", -margins.left + 30)
-    .attr("fill", "black")
-    .style("text-anchor", "middle")
-    .style("transform", "rotate(270deg)")
-    .text("Valor")
-
   // Variables
   const yearMin = d3.min(dataset, (d) => d.anio)
   const yearMax = d3.max(dataset, (d) => d.anio)
@@ -144,8 +98,8 @@ const draw = async (el = "#graf") => {
       .join("circle")
       .transition() 
       .duration(1000)
-      .attr("cx", (d) => x(d.anio))
-      .attr("cy", (d) => y(d.valor))
+      .attr("cx", (d) => x(xAccessor(d)))
+      .attr("cy", (d) => y(yAccessor(d)))
       .attr("r", (d) => 7)
       .attr("fill", (d) => color(d.tipo))
       .attr("stroke", "#999")
@@ -201,25 +155,6 @@ const draw = async (el = "#graf") => {
         );
     }
 
-    const etiqueta = chart
-      .selectAll("text.etiqueta")
-      .data(ds)
-      .join("text")
-      .classed("etiqueta", true)
-      .transition() 
-      .duration(1000)
-      .attr("x", (d) => x(d.anio))
-      .attr("y", (d) => y(d.valor)-10)
-      //.attr("transform", `translate(0, ${(d) => y(d.valor)})`)
-      //.attr("transform", "rotate(-65)")
-      .text((d) => new Intl.NumberFormat("es-MX", {
-        style: "currency",
-        currency: "MXN",
-        maximumFractionDigits: 0,
-        roundingIncrement: 5,
-      }).format(d.valor/1000000) + " M")
-      .attr("clip-path", "url(#clip)");
-
     mesLayer.text(meses[mes])
   }
 
@@ -253,6 +188,53 @@ const draw = async (el = "#graf") => {
     }
     running = !running
   })
+
+  const FormatX = (d) => {
+    return d
+  }
+
+  const FormatY = (d) => {
+    return d/1000000 + " M"
+  }
+
+  // Ejes
+  const xAxis = d3
+    .axisBottom(x)
+    .ticks(20)
+    .tickSize(-alto)
+    .tickFormat(FormatX)
+
+  const yAxis = d3.axisLeft(y)
+    .tickSize(-ancho)
+    .tickFormat(FormatY)
+                  
+  const xAxisGroup = chart
+    .append("g")
+    .attr("transform", `translate(0, ${alto})`)
+    .call(xAxis)
+    .classed("axis", true)
+
+  const yAxisGroup = chart
+    .append("g")
+    .call(yAxis)
+    .classed("axis", true)
+
+  xAxisGroup
+    .append("text")
+    .attr("x", ancho / 2)
+    .attr("y", margins.bottom - 10)
+    .attr("fill", "black")
+    .text("Año")
+
+  yAxisGroup
+    .append("text")
+    .attr("x", -alto / 2)
+    .attr("y", -margins.left + 30)
+    .attr("fill", "black")
+    .style("text-anchor", "middle")
+    .style("transform", "rotate(270deg)")
+    .text("Valor")
+
 }
 
 draw()
